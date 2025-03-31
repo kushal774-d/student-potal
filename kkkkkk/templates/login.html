@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kushal's student Portal</title>
+    <link rel="stylesheet" href="/static/f.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <h1>WELCOME BACK!</h1>
+            <p>We're honored to have you visit our digital space</p>
+        </div>
+        
+        <div class="form-section">
+            <!-- Login Form -->
+            <div id="login-form" class="form-container active">
+                <h2 class="form-title">Login</h2>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <div class="toggle-form">
+                    Don't have an account? <a id="show-register">Sign Up</a>
+                </div>
+            </div>
+            
+            <!-- Registration Form -->
+            <div id="register-form" class="form-container">
+                <h2 class="form-title">Sign Up</h2>
+                <form action="/register" method="POST">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <input type="password" id="register-confirm-password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                </form>
+                <div class="toggle-form">
+                    Already have an account? <a id="show-login">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login and registration forms
+        document.getElementById('show-register').addEventListener('click', function() {
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('register-form').classList.add('active');
+        });
+        
+        document.getElementById('show-login').addEventListener('click', function() {
+            document.getElementById('register-form').classList.remove('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+    </script>
+</body>
+</html>

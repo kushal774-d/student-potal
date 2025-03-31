@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Entry Portal</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Marks Entry Portal</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form id="marksForm">
+            <div class="form-group">
+                <label>Student Name:</label>
+                <input type="text" id="studentName" required>
+            </div>
+
+            <div class="form-group">
+                <label>Registration ID (RID):</label>
+                <input type="text" id="studentRID" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="studentEmail" required>
+            </div>
+
+            <div class="form-group">
+                <label>Course Name:</label>
+                <input type="text" id="courseName" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="flex: 1;">
+                    <label>Year:</label>
+                    <input type="number" id="year" min="1" max="5" required>
+                </div>
+                <div class="form-group" style="flex: 1; margin-left: 10px;">
+                    <label>Semester:</label>
+                    <select id="semester" required>
+                        <option value="">Select Semester</option>
+                        <option value="1st">1st Semester</option>
+                        <option value="2nd">2nd Semester</option>
+                        <option value="3rd">3rd Semester</option>
+                        <option value="4th">4th Semester</option>
+                        <option value="5th">5th Semester</option>
+                        <option value="6th">6th Semester</option>
+                        <option value="7th">7th Semester</option>
+                        <option value="8th">8th Semester</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="subjectsContainer">
+                <div class="subject-entry">
+                    <div class="subject-header">
+                        <h3>Subject 1</h3>
+                    </div>
+                    <div class="subject-fields">
+                        <input type="text" placeholder="Subject Name" required>
+                        <input type="number" class="internal" placeholder="Internal Marks" min="0" max="50" required>
+                        <input type="number" class="external" placeholder="External Marks" min="0" max="100" required>
+                        <input type="number" class="total" placeholder="Total" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" onclick="addSubject()">Add Subject</button>
+            <button type="submit">Submit</button>
+        </form>
+        <button id="newEntryBtn" onclick="newEntry()" style="display: none;">Start New Entry</button>
+        <div id="errorMessages"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
